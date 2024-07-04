@@ -19,9 +19,9 @@
     </head>
 <script type="module"> 
     window.thermion_dart = await thermion_dart();      
-    const dartModulePromise = WebAssembly.compileStreaming(fetch('example_web.wasm'));
+    const dartModulePromise = WebAssembly.compileStreaming(fetch('example_js.wasm'));
     const imports = {};
-    const dart2wasm_runtime = await import('./example_web.mjs');
+    const dart2wasm_runtime = await import('./example_js.mjs');
     const moduleInstance = await dart2wasm_runtime.instantiate(dartModulePromise, imports);
     window.example = moduleInstance;
     await dart2wasm_runtime.invoke(moduleInstance);

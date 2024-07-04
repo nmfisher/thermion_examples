@@ -39,12 +39,15 @@ void main(List<String> arguments) async {
   var height = window.innerHeight;
   await viewer.initialize(width, height);
   await viewer.setBackgroundColor(0.0, 1.0, 1.0, 1.0);
-  // await viewer.loadSkybox("assets/default_env_skybox.ktx");
-  // await viewer.loadIbl("assets/default_env_ibl.ktx");
-  // await viewer.loadGltf("assets/FlightHelmet.gltf", "assets");
+  print("LOADING SKYBOX");
+  await viewer.loadSkybox("assets/default_env/default_env_skybox.ktx");
+  print("LOADING IBL");
+  await viewer.loadIbl("assets/default_env/default_env_ibl.ktx");
+  print("LOADING GLTF");
+  await viewer.loadGltf(
+      "assets/FlightHelmet/FlightHelmet.gltf", "assets/FlightHelmet");
 
   await viewer.setPostProcessing(true);
-  // await viewer.setRendering(true);
 
   var jsWrapper = ThermionViewerJSDartBridge(viewer);
   jsWrapper.bind();

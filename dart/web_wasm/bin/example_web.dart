@@ -1,12 +1,8 @@
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
-import 'package:thermion_dart/thermion_dart/compatibility/compatibility.dart';
-import 'package:thermion_dart/thermion_dart/thermion_viewer_ffi.dart';
 import 'package:web/web.dart';
 
 void main(List<String> arguments) async {
-  var fc = FooChar();
-
   final canvas = document.getElementById("canvas") as HTMLCanvasElement;
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -42,9 +38,13 @@ void main(List<String> arguments) async {
   var height = window.innerHeight;
   await viewer.createSwapChain(width.toDouble(), height.toDouble());
   await viewer.setBackgroundColor(0.0, 1.0, 1.0, 1.0);
-  await viewer.loadSkybox("assets/default_env_skybox.ktx");
-  await viewer.loadIbl("assets/default_env_ibl.ktx");
-  await viewer.loadGltf("assets/FlightHelmet.gltf", "assets");
+  print("LOADING SKYBOX");
+  await viewer.loadSkybox("assets/default_env/default_env_skybox.ktx");
+  print("LOADING IBL");
+  await viewer.loadIbl("assets/default_env/default_env_ibl.ktx");
+  print("LOADING GLTF");
+  await viewer.loadGltf(
+      "assets/FlightHelmet/FlightHelmet.gltf", "assets/FlightHelmet");
   await viewer.updateViewportAndCameraProjection(
       width.toDouble(), height.toDouble());
   await viewer.setPostProcessing(true);
@@ -53,5 +53,4 @@ void main(List<String> arguments) async {
   while (true) {
     await Future.delayed(Duration(milliseconds: 16));
   }
-  print("Finisehd!");
 }
